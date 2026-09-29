@@ -1,0 +1,593 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}Bn-Keys{% endblock %}
+    </title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS do projeto -->
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+    {% block extra_css %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+    <!-- ================================================= -->
+    <!-- BACKGROUND EFFECT -->
+    <!-- ================================================= -->
+
+    <div class="background-glow background-glow-1"></div>
+    <div class="background-glow background-glow-2"></div>
+
+
+    <!-- ================================================= -->
+    <!-- NAVBAR -->
+    <!-- ================================================= -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bnk-navbar sticky-top">
+
+        <div class="container">
+
+
+            <!-- LOGO -->
+
+            <a
+                href="{% url 'home' %}"
+                class="navbar-brand bnk-brand"
+            >
+
+                <img
+                    src="{% static 'images/logo.png' %}"
+                    alt="Bn-Keys"
+                    class="brand-logo"
+                >
+
+                <div class="brand-name">
+
+                    <span class="brand-main">
+                        BN
+                    </span>
+
+                    <span class="brand-secondary">
+                        KEYS
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- MOBILE MENU -->
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#bnkNavbar"
+                aria-controls="bnkNavbar"
+                aria-expanded="false"
+                aria-label="Abrir menu"
+            >
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+            <!-- MENU -->
+
+            <div
+                class="collapse navbar-collapse"
+                id="bnkNavbar"
+            >
+
+
+                <!-- LINKS -->
+
+                <ul class="navbar-nav mx-auto gap-lg-2">
+
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link bnk-nav-link active"
+                            href="{% url 'home' %}"
+                        >
+
+                            <i class="bi bi-house-door-fill"></i>
+
+                            Início
+
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link bnk-nav-link"
+                            href="{% url 'lista_jogos' %}"
+                        >
+
+                            <i class="bi bi-controller"></i>
+
+                            Key Shop
+
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link bnk-nav-link"
+                            href="#ofertas"
+                        >
+
+                            <i class="bi bi-lightning-charge-fill"></i>
+
+                            Ofertas
+
+                        </a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+
+                        <a
+                            class="nav-link bnk-nav-link"
+                            href="#categorias"
+                        >
+
+                            <i class="bi bi-grid-3x3-gap-fill"></i>
+
+                            Categorias
+
+                        </a>
+
+                    </li>
+
+
+                </ul>
+
+
+                <!-- AÇÕES DIREITA -->
+
+                <div class="d-flex align-items-center gap-2">
+
+
+                    <!-- CARRINHO -->
+
+                    <a
+                        href="#"
+                        class="nav-action"
+                        aria-label="Carrinho"
+                        title="Carrinho"
+                    >
+
+                        <i class="bi bi-cart3"></i>
+
+                        <span class="cart-counter">
+                            0
+                        </span>
+
+                    </a>
+
+
+                    <!-- CONFIGURAÇÕES -->
+
+                    <a
+                        href="#"
+                        class="nav-action"
+                        aria-label="Configurações"
+                        title="Configurações"
+                    >
+
+                        <i class="bi bi-gear-fill"></i>
+
+                    </a>
+
+
+                    {% if user.is_authenticated %}
+
+
+                        <!-- USUÁRIO -->
+
+                        <div class="dropdown">
+
+                            <button
+                                class="user-button dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+
+                                <span class="user-avatar">
+
+                                    <i class="bi bi-person-fill"></i>
+
+                                </span>
+
+                                <span class="d-none d-xl-inline">
+                                    {{ user.username }}
+                                </span>
+
+                            </button>
+
+
+                            <ul class="dropdown-menu dropdown-menu-end bnk-dropdown">
+
+
+                                <li>
+
+                                    <h6 class="dropdown-header">
+                                        Minha conta
+                                    </h6>
+
+                                </li>
+
+
+                                <li>
+
+                                    <a
+                                        class="dropdown-item"
+                                        href="#"
+                                    >
+
+                                        <i class="bi bi-person me-2"></i>
+
+                                        Perfil
+
+                                    </a>
+
+                                </li>
+
+
+                                <li>
+
+                                    <a
+                                        class="dropdown-item"
+                                        href="#"
+                                    >
+
+                                        <i class="bi bi-bag-check me-2"></i>
+
+                                        Meus pedidos
+
+                                    </a>
+
+                                </li>
+
+
+                                <li>
+
+                                    <a
+                                        class="dropdown-item"
+                                        href="#"
+                                    >
+
+                                        <i class="bi bi-gear me-2"></i>
+
+                                        Configurações
+
+                                    </a>
+
+                                </li>
+
+
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+
+
+                                <li>
+
+                                    <form
+                                        method="POST"
+                                        action="{% url 'logout' %}"
+                                    >
+
+                                        {% csrf_token %}
+
+                                        <button
+                                            type="submit"
+                                            class="dropdown-item logout-item"
+                                        >
+
+                                            <i class="bi bi-box-arrow-right me-2"></i>
+
+                                            Sair
+
+                                        </button>
+
+                                    </form>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+
+                    {% else %}
+
+
+                        <!-- LOGIN -->
+
+                        <a
+                            href="{% url 'login' %}"
+                            class="login-button"
+                        >
+
+                            <i class="bi bi-person-circle"></i>
+
+                            Entrar
+
+                        </a>
+
+
+                    {% endif %}
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ================================================= -->
+    <!-- CONTEÚDO -->
+    <!-- ================================================= -->
+
+    <main>
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+    <!-- ================================================= -->
+    <!-- FOOTER -->
+    <!-- ================================================= -->
+
+    <footer class="bnk-footer">
+
+        <div class="container">
+
+
+            <div class="row g-5">
+
+
+                <!-- MARCA -->
+
+                <div class="col-lg-5">
+
+                    <div class="footer-brand">
+
+                        <img
+                            src="{% static 'images/logo.png' %}"
+                            alt="Bn-Keys"
+                            class="footer-logo"
+                        >
+
+                        <div>
+
+                            <h4>
+                                Bn-Keys
+                            </h4>
+
+                            <span>
+                                DIGITAL GAME STORE
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <p class="footer-description">
+
+                        Sua central de jogos digitais.
+                        Encontre títulos, promoções e experiências
+                        para sua próxima sessão de gameplay.
+
+                    </p>
+
+
+                    <div class="social-links">
+
+                        <a href="#">
+                            <i class="bi bi-discord"></i>
+                        </a>
+
+                        <a href="#">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+
+                        <a href="#">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+
+                        <a href="#">
+                            <i class="bi bi-youtube"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOJA -->
+
+                <div class="col-6 col-lg-2">
+
+                    <h5 class="footer-title">
+                        Loja
+                    </h5>
+
+                    <ul class="footer-links">
+
+                        <li>
+                            <a href="{% url 'lista_jogos' %}">
+                                Todos os jogos
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#ofertas">
+                                Ofertas
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#categorias">
+                                Categorias
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- CONTA -->
+
+                <div class="col-6 col-lg-2">
+
+                    <h5 class="footer-title">
+                        Conta
+                    </h5>
+
+                    <ul class="footer-links">
+
+                        <li>
+                            <a href="{% url 'login' %}">
+                                Entrar
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                Perfil
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                Pedidos
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- SUPORTE -->
+
+                <div class="col-lg-3">
+
+                    <h5 class="footer-title">
+                        Suporte
+                    </h5>
+
+                    <p class="footer-support">
+
+                        Precisa de ajuda?
+
+                    </p>
+
+                    <a
+                        href="#"
+                        class="support-button"
+                    >
+
+                        <i class="bi bi-headset"></i>
+
+                        Central de suporte
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <hr class="footer-line">
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2026 Bn-Keys
+                </span>
+
+                <span>
+                    Projeto acadêmico Django
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </footer>
+
+
+    <!-- Bootstrap JS -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+
+    {% block extra_js %}
+    {% endblock %}
+
+
+</body>
+
+</html>

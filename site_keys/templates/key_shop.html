@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Key Shop | Bn-Keys
+{% endblock %}
+
+
+{% block content %}
+
+<section class="shop-page">
+
+    <div class="container">
+
+
+        <!-- CABEÇALHO -->
+
+        <div class="shop-header">
+
+
+            <div>
+
+                <span class="section-kicker">
+                    BN-KEYS MARKETPLACE
+                </span>
+
+                <h1>
+                    Key Shop
+                </h1>
+
+                <p>
+                    Explore nosso catálogo de jogos digitais.
+                </p>
+
+            </div>
+
+
+            <div class="shop-count">
+
+                <strong>
+                    {{ jogos|length }}
+                </strong>
+
+                <span>
+                    jogos encontrados
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- CONTROLES -->
+
+        <div class="shop-toolbar">
+
+
+            <div class="shop-search">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="text"
+                    placeholder="Pesquisar jogo..."
+                >
+
+            </div>
+
+
+            <div class="filter-buttons">
+
+
+                <button class="filter-button active">
+                    Todos
+                </button>
+
+
+                <button class="filter-button">
+                    PC
+                </button>
+
+
+                <button class="filter-button">
+                    Steam
+                </button>
+
+
+                <button class="filter-button">
+                    Promoções
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- PRODUTOS -->
+
+        <div class="row g-4">
+
+
+            {% for jogo in jogos %}
+
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+
+
+                <article class="game-card shop-card">
+
+
+                    <div class="game-image-wrapper">
+
+
+                        {% if jogo.imagem_url %}
+
+                            <img
+                                src="{{ jogo.imagem_url }}"
+                                alt="{{ jogo.titulo }}"
+                                class="game-image"
+                            >
+
+                        {% else %}
+
+                            <div class="game-image-placeholder">
+
+                                <i class="bi bi-controller"></i>
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <span class="game-badge">
+                            STEAM
+                        </span>
+
+
+                        <div class="game-overlay">
+
+                            <a
+                                href="{% url 'detalhe_jogo' jogo.id %}"
+                                class="quick-view"
+                            >
+
+                                <i class="bi bi-eye"></i>
+
+                                Detalhes
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="game-body">
+
+
+                        <span class="game-platform">
+
+                            <i class="bi bi-pc-display"></i>
+
+                            {{ jogo.plataforma }}
+
+                        </span>
+
+
+                        <h3 class="game-title">
+                            {{ jogo.titulo }}
+                        </h3>
+
+
+                        <div class="game-description">
+
+                            {{ jogo.descricao|truncatechars:80 }}
+
+                        </div>
+
+
+                        <div class="game-footer">
+
+
+                            <div>
+
+                                <span class="price-label">
+                                    Preço
+                                </span>
+
+                                <strong class="game-price">
+                                    R$ {{ jogo.preco }}
+                                </strong>
+
+                            </div>
+
+
+                            <a
+                                href="{% url 'detalhe_jogo' jogo.id %}"
+                                class="buy-button"
+                            >
+
+                                <i class="bi bi-cart-plus"></i>
+
+                            </a>
+
+                        </div>
+
+
+                    </div>
+
+
+                </article>
+
+
+            </div>
+
+
+            {% empty %}
+
+
+            <div class="col-12">
+
+                <div class="empty-products large">
+
+                    <i class="bi bi-controller"></i>
+
+                    <h3>
+                        O catálogo está vazio.
+                    </h3>
+
+                    <p>
+                        Adicione jogos através do Django Admin.
+                    </p>
+
+                    {% if user.is_authenticated %}
+
+                        <a
+                            href="/admin/"
+                            class="btn-neon-primary mt-3"
+                        >
+
+                            <i class="bi bi-plus-lg"></i>
+
+                            Cadastrar jogos
+
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+{% endblock %}
