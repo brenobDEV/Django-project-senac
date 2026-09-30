@@ -1,0 +1,380 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Key Shop | Bn-Keys
+{% endblock %}
+
+
+{% block content %}
+
+<section class="shop-page">
+
+    <div class="container">
+
+        <div class="shop-header">
+
+            <div>
+
+                <span class="section-kicker">
+                    BN-KEYS MARKETPLACE
+                </span>
+
+                <h1>
+                    Key Shop
+                </h1>
+
+                <p>
+                    Explore o catálogo de jogos digitais.
+                </p>
+
+            </div>
+
+            <div class="shop-count">
+
+                <strong>
+                    {{ jogos|length }}
+                </strong>
+
+                <span>
+                    jogos encontrados
+                </span>
+
+            </div>
+
+        </div>
+
+
+        {% if user.is_authenticated %}
+
+            <div class="management-toolbar">
+
+                <div>
+
+                    <strong>
+                        Área de gerenciamento
+                    </strong>
+
+                    <span>
+                        Você está autenticado.
+                    </span>
+
+                </div>
+
+                <a
+                    href="{% url 'criar_jogo' %}"
+                    class="btn-neon-primary"
+                >
+
+                    <i class="bi bi-plus-lg"></i>
+
+                    Cadastrar jogo
+
+                </a>
+
+            </div>
+
+        {% endif %}
+
+
+        <form
+            class="shop-toolbar"
+            method="get"
+            action="{% url 'keys_shop' %}"
+        >
+
+            <div class="shop-search">
+
+                <i class="bi bi-search"></i>
+
+                <input
+                    type="search"
+                    name="q"
+                    value="{{ termo }}"
+                    placeholder="Pesquisar por título, plataforma ou região..."
+                    aria-label="Pesquisar jogo"
+                >
+
+            </div>
+
+            <select
+                name="plataforma"
+                class="shop-select"
+                aria-label="Filtrar por plataforma"
+            >
+
+                <option value="">
+                    Todas as plataformas
+                </option>
+
+                {% for item in plataformas %}
+
+                    <option
+                        value="{{ item }}"
+                        {% if item == plataforma_selecionada %}selected{% endif %}
+                    >
+                        {{ item }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+            <label class="offer-filter">
+
+                <input
+                    type="checkbox"
+                    name="ofertas"
+                    value="1"
+                    {% if apenas_ofertas %}checked{% endif %}
+                >
+
+                <span>
+                    Somente ofertas
+                </span>
+
+            </label>
+
+            <button
+                type="submit"
+                class="filter-submit"
+            >
+
+                Filtrar
+
+                <i class="bi bi-funnel"></i>
+
+            </button>
+
+        </form>
+
+
+        {% if termo or plataforma_selecionada or apenas_ofertas %}
+
+            <div class="active-filters">
+
+                <span>
+                    Filtros ativos
+                </span>
+
+                <a href="{% url 'keys_shop' %}">
+                    Limpar
+                    <i class="bi bi-x"></i>
+                </a>
+
+            </div>
+
+        {% endif %}
+
+
+        <div class="row g-4">
+
+            {% for jogo in jogos %}
+
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+
+                    <article class="game-card shop-card">
+
+                        <div class="game-image-wrapper">
+
+                            {% if jogo.imagem_url %}
+
+                                <img
+                                    src="{{ jogo.imagem_url }}"
+                                    alt="{{ jogo.titulo }}"
+                                    class="game-image"
+                                    loading="lazy"
+                                >
+
+                            {% else %}
+
+                                <div class="game-image-placeholder">
+
+                                    <i class="bi bi-controller"></i>
+
+                                </div>
+
+                            {% endif %}
+
+                            <span class="game-badge">
+                                {{ jogo.plataforma }}
+                            </span>
+
+                            {% if jogo.preco_anterior and jogo.preco_anterior > jogo.preco %}
+
+                                <span class="discount-badge">
+                                    OFERTA
+                                </span>
+
+                            {% endif %}
+
+                            <div class="game-overlay">
+
+                                <a
+                                    href="{% url 'detalhe_jogo' jogo.id %}"
+                                    class="quick-view"
+                                >
+
+                                    <i class="bi bi-eye"></i>
+
+                                    Detalhes
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="game-body">
+
+                            <span class="game-platform">
+
+                                <i class="bi bi-geo-alt"></i>
+
+                                {{ jogo.regiao }}
+
+                            </span>
+
+                            <h3 class="game-title">
+                                {{ jogo.titulo }}
+                            </h3>
+
+                            <div class="game-description">
+                                {{ jogo.descricao|truncatechars:90 }}
+                            </div>
+
+
+                            <div class="stock-status">
+
+                                {% if jogo.estoque > 0 %}
+
+                                    <span class="stock-available">
+
+                                        <i class="bi bi-check-circle-fill"></i>
+
+                                        {{ jogo.estoque }} em estoque
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="stock-empty">
+
+                                        <i class="bi bi-x-circle-fill"></i>
+
+                                        Esgotado
+
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <div class="game-footer">
+
+                                <div class="price-stack">
+
+                                    {% if jogo.preco_anterior and jogo.preco_anterior > jogo.preco %}
+
+                                        <span class="old-price">
+                                            R$ {{ jogo.preco_anterior }}
+                                        </span>
+
+                                    {% endif %}
+
+                                    <strong class="game-price">
+                                        R$ {{ jogo.preco }}
+                                    </strong>
+
+                                </div>
+
+                                <a
+                                    href="{% url 'detalhe_jogo' jogo.id %}"
+                                    class="buy-button"
+                                    title="Ver detalhes"
+                                    aria-label="Ver detalhes de {{ jogo.titulo }}"
+                                >
+
+                                    <i class="bi bi-arrow-right"></i>
+
+                                </a>
+
+                            </div>
+
+
+                            {% if user.is_authenticated %}
+
+                                <div class="management-actions">
+
+                                    <a
+                                        href="{% url 'editar_jogo' jogo.id %}"
+                                        class="management-edit"
+                                    >
+
+                                        <i class="bi bi-pencil"></i>
+
+                                        Editar
+
+                                    </a>
+
+                                    <a
+                                        href="{% url 'excluir_jogo' jogo.id %}"
+                                        class="management-delete"
+                                    >
+
+                                        <i class="bi bi-trash3"></i>
+
+                                        Excluir
+
+                                    </a>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            {% empty %}
+
+                <div class="col-12">
+
+                    <div class="empty-products large">
+
+                        <i class="bi bi-search"></i>
+
+                        <h3>
+                            Nenhum jogo encontrado.
+                        </h3>
+
+                        <p>
+                            Tente pesquisar por outro título,
+                            plataforma ou região.
+                        </p>
+
+                        <a
+                            href="{% url 'keys_shop' %}"
+                            class="btn-neon-secondary mt-3"
+                        >
+
+                            Limpar filtros
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

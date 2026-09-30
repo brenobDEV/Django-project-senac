@@ -6,13 +6,22 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Bn-Keys - catálogo acadêmico de jogos digitais."
+    >
 
     <title>
         {% block title %}Bn-Keys{% endblock %}
     </title>
 
-    <!-- Bootstrap -->
+    <!-- Bootstrap 5.3 -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -25,8 +34,16 @@
     >
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap"
@@ -34,38 +51,23 @@
     >
 
     <!-- CSS do projeto -->
-    <link
-        rel="stylesheet"
-        href="{% static 'css/style.css' %}"
-    >
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 
     {% block extra_css %}
     {% endblock %}
 
 </head>
 
-
 <body>
-
-
-    <!-- ================================================= -->
-    <!-- BACKGROUND EFFECT -->
-    <!-- ================================================= -->
 
     <div class="background-glow background-glow-1"></div>
     <div class="background-glow background-glow-2"></div>
 
-
-    <!-- ================================================= -->
-    <!-- NAVBAR -->
-    <!-- ================================================= -->
+    <!-- NAVBAR GLOBAL -->
 
     <nav class="navbar navbar-expand-lg navbar-dark bnk-navbar sticky-top">
 
         <div class="container">
-
-
-            <!-- LOGO -->
 
             <a
                 href="{% url 'home' %}"
@@ -92,9 +94,6 @@
 
             </a>
 
-
-            <!-- MOBILE MENU -->
-
             <button
                 class="navbar-toggler"
                 type="button"
@@ -109,24 +108,17 @@
 
             </button>
 
-
-            <!-- MENU -->
-
             <div
                 class="collapse navbar-collapse"
                 id="bnkNavbar"
             >
 
-
-                <!-- LINKS -->
-
-                <ul class="navbar-nav mx-auto gap-lg-2">
-
+                <ul class="navbar-nav mx-auto">
 
                     <li class="nav-item">
 
                         <a
-                            class="nav-link bnk-nav-link active"
+                            class="nav-link bnk-nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
                             href="{% url 'home' %}"
                         >
 
@@ -138,12 +130,11 @@
 
                     </li>
 
-
                     <li class="nav-item">
 
                         <a
-                            class="nav-link bnk-nav-link"
-                            href="{% url 'lista_jogos' %}"
+                            class="nav-link bnk-nav-link {% if request.resolver_match.url_name == 'keys_shop' %}active{% endif %}"
+                            href="{% url 'keys_shop' %}"
                         >
 
                             <i class="bi bi-controller"></i>
@@ -154,83 +145,22 @@
 
                     </li>
 
-
-                    <li class="nav-item">
-
-                        <a
-                            class="nav-link bnk-nav-link"
-                            href="#ofertas"
-                        >
-
-                            <i class="bi bi-lightning-charge-fill"></i>
-
-                            Ofertas
-
-                        </a>
-
-                    </li>
-
-
-                    <li class="nav-item">
-
-                        <a
-                            class="nav-link bnk-nav-link"
-                            href="#categorias"
-                        >
-
-                            <i class="bi bi-grid-3x3-gap-fill"></i>
-
-                            Categorias
-
-                        </a>
-
-                    </li>
-
-
                 </ul>
 
-
-                <!-- AÇÕES DIREITA -->
-
-                <div class="d-flex align-items-center gap-2">
-
-
-                    <!-- CARRINHO -->
-
-                    <a
-                        href="#"
-                        class="nav-action"
-                        aria-label="Carrinho"
-                        title="Carrinho"
-                    >
-
-                        <i class="bi bi-cart3"></i>
-
-                        <span class="cart-counter">
-                            0
-                        </span>
-
-                    </a>
-
-
-                    <!-- CONFIGURAÇÕES -->
-
-                    <a
-                        href="#"
-                        class="nav-action"
-                        aria-label="Configurações"
-                        title="Configurações"
-                    >
-
-                        <i class="bi bi-gear-fill"></i>
-
-                    </a>
-
+                <div class="d-flex align-items-center gap-2 navbar-actions">
 
                     {% if user.is_authenticated %}
 
+                        <a
+                            href="{% url 'configuracoes' %}"
+                            class="nav-action"
+                            aria-label="Configurações"
+                            title="Configurações"
+                        >
 
-                        <!-- USUÁRIO -->
+                            <i class="bi bi-gear-fill"></i>
+
+                        </a>
 
                         <div class="dropdown">
 
@@ -247,30 +177,33 @@
 
                                 </span>
 
-                                <span class="d-none d-xl-inline">
+                                <span class="user-name">
+
                                     {{ user.username }}
+
                                 </span>
 
                             </button>
 
-
-                            <ul class="dropdown-menu dropdown-menu-end bnk-dropdown">
-
+                            <ul
+                                class="dropdown-menu dropdown-menu-end bnk-dropdown"
+                            >
 
                                 <li>
 
                                     <h6 class="dropdown-header">
+
                                         Minha conta
+
                                     </h6>
 
                                 </li>
-
 
                                 <li>
 
                                     <a
                                         class="dropdown-item"
-                                        href="#"
+                                        href="{% url 'perfil' %}"
                                     >
 
                                         <i class="bi bi-person me-2"></i>
@@ -281,28 +214,26 @@
 
                                 </li>
 
-
                                 <li>
 
                                     <a
                                         class="dropdown-item"
-                                        href="#"
+                                        href="{% url 'minhas_compras' %}"
                                     >
 
                                         <i class="bi bi-bag-check me-2"></i>
 
-                                        Meus pedidos
+                                        Minhas compras
 
                                     </a>
 
                                 </li>
 
-
                                 <li>
 
                                     <a
                                         class="dropdown-item"
-                                        href="#"
+                                        href="{% url 'configuracoes' %}"
                                     >
 
                                         <i class="bi bi-gear me-2"></i>
@@ -313,16 +244,16 @@
 
                                 </li>
 
-
                                 <li>
-                                    <hr class="dropdown-divider">
-                                </li>
 
+                                    <hr class="dropdown-divider">
+
+                                </li>
 
                                 <li>
 
                                     <form
-                                        method="POST"
+                                        method="post"
                                         action="{% url 'logout' %}"
                                     >
 
@@ -347,11 +278,7 @@
 
                         </div>
 
-
                     {% else %}
-
-
-                        <!-- LOGIN -->
 
                         <a
                             href="{% url 'login' %}"
@@ -364,9 +291,7 @@
 
                         </a>
 
-
                     {% endif %}
-
 
                 </div>
 
@@ -376,32 +301,20 @@
 
     </nav>
 
-
-    <!-- ================================================= -->
-    <!-- CONTEÚDO -->
-    <!-- ================================================= -->
-
-    <main>
+    <main class="site-main">
 
         {% block content %}
         {% endblock %}
 
     </main>
 
-
-    <!-- ================================================= -->
-    <!-- FOOTER -->
-    <!-- ================================================= -->
+    <!-- FOOTER GLOBAL -->
 
     <footer class="bnk-footer">
 
         <div class="container">
 
-
             <div class="row g-5">
-
-
-                <!-- MARCA -->
 
                 <div class="col-lg-5">
 
@@ -427,42 +340,16 @@
 
                     </div>
 
-
                     <p class="footer-description">
 
-                        Sua central de jogos digitais.
-                        Encontre títulos, promoções e experiências
-                        para sua próxima sessão de gameplay.
+                        Um catálogo acadêmico de jogos digitais
+                        desenvolvido com Django.
 
                     </p>
 
-
-                    <div class="social-links">
-
-                        <a href="#">
-                            <i class="bi bi-discord"></i>
-                        </a>
-
-                        <a href="#">
-                            <i class="bi bi-instagram"></i>
-                        </a>
-
-                        <a href="#">
-                            <i class="bi bi-twitter-x"></i>
-                        </a>
-
-                        <a href="#">
-                            <i class="bi bi-youtube"></i>
-                        </a>
-
-                    </div>
-
                 </div>
 
-
-                <!-- LOJA -->
-
-                <div class="col-6 col-lg-2">
+                <div class="col-6 col-lg-3">
 
                     <h5 class="footer-title">
                         Loja
@@ -471,29 +358,24 @@
                     <ul class="footer-links">
 
                         <li>
-                            <a href="{% url 'lista_jogos' %}">
+
+                            <a href="{% url 'keys_shop' %}">
                                 Todos os jogos
                             </a>
+
                         </li>
 
                         <li>
-                            <a href="#ofertas">
-                                Ofertas
-                            </a>
-                        </li>
 
-                        <li>
-                            <a href="#categorias">
-                                Categorias
+                            <a href="{% url 'home' %}">
+                                Página inicial
                             </a>
+
                         </li>
 
                     </ul>
 
                 </div>
-
-
-                <!-- CONTA -->
 
                 <div class="col-6 col-lg-2">
 
@@ -503,61 +385,67 @@
 
                     <ul class="footer-links">
 
-                        <li>
-                            <a href="{% url 'login' %}">
-                                Entrar
-                            </a>
-                        </li>
+                        {% if user.is_authenticated %}
 
-                        <li>
-                            <a href="#">
-                                Perfil
-                            </a>
-                        </li>
+                            <li>
 
-                        <li>
-                            <a href="#">
-                                Pedidos
-                            </a>
-                        </li>
+                                <a href="{% url 'perfil' %}">
+                                    Perfil
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a href="{% url 'minhas_compras' %}">
+                                    Minhas compras
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a href="{% url 'configuracoes' %}">
+                                    Configurações
+                                </a>
+
+                            </li>
+
+                        {% else %}
+
+                            <li>
+
+                                <a href="{% url 'login' %}">
+                                    Entrar
+                                </a>
+
+                            </li>
+
+                        {% endif %}
 
                     </ul>
 
                 </div>
 
-
-                <!-- SUPORTE -->
-
-                <div class="col-lg-3">
+                <div class="col-lg-2">
 
                     <h5 class="footer-title">
-                        Suporte
+                        Projeto
                     </h5>
 
                     <p class="footer-support">
 
-                        Precisa de ajuda?
+                        Projeto acadêmico Django
+                        com foco em catálogo de
+                        jogos digitais.
 
                     </p>
-
-                    <a
-                        href="#"
-                        class="support-button"
-                    >
-
-                        <i class="bi bi-headset"></i>
-
-                        Central de suporte
-
-                    </a>
 
                 </div>
 
             </div>
 
-
             <hr class="footer-line">
-
 
             <div class="footer-bottom">
 
@@ -571,22 +459,16 @@
 
             </div>
 
-
         </div>
 
     </footer>
-
-
-    <!-- Bootstrap JS -->
 
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     ></script>
 
-
     {% block extra_js %}
     {% endblock %}
-
 
 </body>
 

@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+    {% if modo == "editar" %}
+        Editar jogo | Bn-Keys
+    {% else %}
+        Cadastrar jogo | Bn-Keys
+    {% endif %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="form-page">
+
+    <div class="container">
+
+        <div class="form-page-header">
+
+            <span class="section-kicker">
+                BN-KEYS MANAGEMENT
+            </span>
+
+            <h1>
+
+                {% if modo == "editar" %}
+                    Editar jogo
+                {% else %}
+                    Cadastrar jogo
+                {% endif %}
+
+            </h1>
+
+            <p>
+                Preencha apenas os campos existentes no Model Key.
+            </p>
+
+        </div>
+
+
+        <div class="crud-form-card">
+
+            <form
+                method="post"
+                novalidate
+            >
+
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+
+                    <div class="auth-alert">
+
+                        {{ form.non_field_errors }}
+
+                    </div>
+
+                {% endif %}
+
+
+                {% for field in form %}
+
+                    <div
+                        class="
+                            form-field
+                            {% if field.name == 'ativo' %}
+                                checkbox-field
+                            {% endif %}
+                        "
+                    >
+
+                        {% if field.name == "ativo" %}
+
+                            <div class="form-check">
+
+                                {{ field }}
+
+                                <label
+                                    class="form-check-label"
+                                    for="{{ field.id_for_label }}"
+                                >
+
+                                    {{ field.label }}
+
+                                </label>
+
+                            </div>
+
+                        {% else %}
+
+                            <label
+                                for="{{ field.id_for_label }}"
+                            >
+
+                                {{ field.label }}
+
+                            </label>
+
+                            {{ field }}
+
+                        {% endif %}
+
+
+                        {% if field.help_text %}
+
+                            <small class="field-help">
+                                {{ field.help_text }}
+                            </small>
+
+                        {% endif %}
+
+
+                        {% if field.errors %}
+
+                            <div class="field-error">
+
+                                {{ field.errors }}
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+
+                <div class="crud-form-actions">
+
+                    <a
+                        href="{% url 'keys_shop' %}"
+                        class="btn-neon-secondary"
+                    >
+
+                        Cancelar
+
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn-neon-primary"
+                    >
+
+                        <i class="bi bi-check-lg"></i>
+
+                        {% if modo == "editar" %}
+                            Salvar alterações
+                        {% else %}
+                            Cadastrar jogo
+                        {% endif %}
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

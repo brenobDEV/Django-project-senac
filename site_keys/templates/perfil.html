@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Perfil | Bn-Keys
+{% endblock %}
+
+
+{% block content %}
+
+<section class="account-page">
+
+    <div class="container">
+
+        <div class="account-header">
+
+            <span class="section-kicker">
+                MINHA CONTA
+            </span>
+
+            <h1>
+                Perfil
+            </h1>
+
+            <p>
+                Informações básicas da conta autenticada.
+            </p>
+
+        </div>
+
+
+        <div class="profile-card">
+
+            <div class="profile-avatar">
+
+                <i class="bi bi-person-fill"></i>
+
+            </div>
+
+            <div class="profile-main">
+
+                <span class="profile-kicker">
+                    USUÁRIO
+                </span>
+
+                <h2>
+                    {{ user.username }}
+                </h2>
+
+                <div class="profile-info-grid">
+
+                    <div>
+
+                        <span>
+                            Nome de usuário
+                        </span>
+
+                        <strong>
+                            {{ user.username }}
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            E-mail
+                        </span>
+
+                        <strong>
+                            {{ user.email|default:"Não informado" }}
+                        </strong>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Conta criada em
+                        </span>
+
+                        <strong>
+                            {{ user.date_joined|date:"d/m/Y H:i" }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-actions">
+
+            <a
+                href="{% url 'minhas_compras' %}"
+                class="btn-neon-secondary"
+            >
+
+                <i class="bi bi-bag-check"></i>
+
+                Minhas compras
+
+            </a>
+
+            <a
+                href="{% url 'configuracoes' %}"
+                class="btn-neon-secondary"
+            >
+
+                <i class="bi bi-gear"></i>
+
+                Configurações
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

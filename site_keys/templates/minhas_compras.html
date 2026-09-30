@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Minhas compras | Bn-Keys
+{% endblock %}
+
+
+{% block content %}
+
+<section class="account-page">
+
+    <div class="container">
+
+        <div class="account-header">
+
+            <span class="section-kicker">
+                MINHA CONTA
+            </span>
+
+            <h1>
+                Minhas compras
+            </h1>
+
+            <p>
+                Consulte aqui seus pedidos quando o sistema de
+                compras estiver implementado no projeto.
+            </p>
+
+        </div>
+
+
+        <div class="empty-account-card">
+
+            <div class="empty-account-icon">
+
+                <i class="bi bi-bag-x"></i>
+
+            </div>
+
+            <span class="empty-account-kicker">
+                CATÁLOGO ACADÊMICO
+            </span>
+
+            <h2>
+                Você ainda não possui compras.
+            </h2>
+
+            <p>
+                O projeto atual ainda não possui um Model de
+                compras ou pedidos. Esta página é apenas uma
+                visualização preparada para uma futura implementação.
+            </p>
+
+            <a
+                href="{% url 'keys_shop' %}"
+                class="btn-neon-primary"
+            >
+
+                <i class="bi bi-controller"></i>
+
+                Explorar jogos
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

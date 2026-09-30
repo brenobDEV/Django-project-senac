@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Sessão encerrada | Bn-Keys
+{% endblock %}
+
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="container">
+
+        <div class="logout-card">
+
+            <div class="login-icon">
+
+                <i class="bi bi-check-lg"></i>
+
+            </div>
+
+            <span class="section-kicker">
+                BN-KEYS
+            </span>
+
+            <h1>
+                Sessão encerrada
+            </h1>
+
+            <p>
+                Você saiu da sua conta com segurança.
+            </p>
+
+            <div class="logout-actions">
+
+                <a
+                    href="{% url 'home' %}"
+                    class="btn-neon-secondary"
+                >
+
+                    Voltar para a Home
+
+                </a>
+
+                <a
+                    href="{% url 'login' %}"
+                    class="btn-neon-primary"
+                >
+
+                    Entrar novamente
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

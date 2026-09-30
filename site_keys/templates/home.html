@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-
-{% load static %}
+{% extends "base.html" %}
 
 {% block title %}
     Bn-Keys | Jogos digitais
@@ -9,10 +7,7 @@
 
 {% block content %}
 
-
-<!-- ================================================= -->
 <!-- HERO -->
-<!-- ================================================= -->
 
 <section class="hero-section">
 
@@ -20,11 +15,7 @@
 
         <div class="row align-items-center min-vh-75">
 
-
-            <!-- TEXTO -->
-
             <div class="col-lg-6">
-
 
                 <div class="hero-badge">
 
@@ -34,7 +25,6 @@
 
                 </div>
 
-
                 <h1 class="hero-title">
 
                     Seu próximo jogo
@@ -42,20 +32,18 @@
 
                 </h1>
 
-
                 <p class="hero-description">
 
-                    Explore uma seleção de jogos digitais,
-                    encontre ofertas especiais e descubra
-                    novas experiências para sua biblioteca.
+                    Explore o catálogo da Bn-Keys,
+                    pesquise jogos por título ou plataforma
+                    e descubra ofertas cadastradas no projeto.
 
                 </p>
-
 
                 <div class="hero-actions">
 
                     <a
-                        href="{% url 'lista_jogos' %}"
+                        href="{% url 'keys_shop' %}"
                         class="btn-neon-primary"
                     >
 
@@ -65,51 +53,44 @@
 
                     </a>
 
-
                     <a
-                        href="#ofertas"
+                        href="{% url 'keys_shop' %}?ofertas=1"
                         class="btn-neon-secondary"
                     >
 
                         Ver ofertas
 
-                        <i class="bi bi-arrow-down"></i>
+                        <i class="bi bi-arrow-right"></i>
 
                     </a>
 
                 </div>
 
-
-                <!-- MINI ESTATÍSTICAS -->
-
                 <div class="hero-stats">
 
-
                     <div>
 
                         <strong>
-                            100+
+                            {{ jogos|length }}
                         </strong>
 
                         <span>
-                            Jogos
+                            Jogos no catálogo
                         </span>
 
                     </div>
 
-
                     <div>
 
                         <strong>
-                            24/7
+                            {{ ofertas|length }}
                         </strong>
 
                         <span>
-                            Disponibilidade
+                            Ofertas
                         </span>
 
                     </div>
-
 
                     <div>
 
@@ -118,38 +99,30 @@
                         </strong>
 
                         <span>
-                            Entrega
+                            Catálogo
                         </span>
 
                     </div>
-
 
                 </div>
 
             </div>
 
-
-            <!-- VISUAL -->
-
             <div class="col-lg-6">
 
                 <div class="hero-visual">
 
-
                     <div class="hero-orbit hero-orbit-1"></div>
                     <div class="hero-orbit hero-orbit-2"></div>
 
-
                     <div class="hero-card-main">
 
-
                         <div class="hero-card-glow"></div>
-
 
                         <div class="hero-card-content">
 
                             <span class="hero-card-label">
-                                DESTAQUE DA SEMANA
+                                DESTAQUE BN-KEYS
                             </span>
 
                             <h3>
@@ -157,10 +130,11 @@
                             </h3>
 
                             <p>
-                                Descubra sua próxima aventura.
+                                Encontre seu próximo título
+                                diretamente no catálogo.
                             </p>
 
-                            <a href="{% url 'lista_jogos' %}">
+                            <a href="{% url 'keys_shop' %}">
                                 Ver catálogo
                                 <i class="bi bi-arrow-right"></i>
                             </a>
@@ -169,15 +143,13 @@
 
                     </div>
 
-
                     <div class="floating-chip chip-one">
 
                         <i class="bi bi-lightning-charge-fill"></i>
 
-                        OFERTA
+                        OFERTAS
 
                     </div>
-
 
                     <div class="floating-chip chip-two">
 
@@ -187,7 +159,6 @@
 
                     </div>
 
-
                 </div>
 
             </div>
@@ -199,16 +170,17 @@
 </section>
 
 
-
-<!-- ================================================= -->
-<!-- BARRA DE BUSCA -->
-<!-- ================================================= -->
+<!-- BUSCA -->
 
 <section class="search-section">
 
     <div class="container">
 
-        <div class="search-box">
+        <form
+            class="search-box"
+            method="get"
+            action="{% url 'keys_shop' %}"
+        >
 
             <div class="search-icon">
 
@@ -216,14 +188,14 @@
 
             </div>
 
-
             <input
-                type="text"
-                placeholder="Busque por jogos, plataformas ou categorias..."
+                type="search"
+                name="q"
+                placeholder="Busque por título, plataforma ou região..."
+                aria-label="Pesquisar jogos"
             >
 
-
-            <button>
+            <button type="submit">
 
                 Buscar
 
@@ -231,17 +203,14 @@
 
             </button>
 
-        </div>
+        </form>
 
     </div>
 
 </section>
 
 
-
-<!-- ================================================= -->
 <!-- CATEGORIAS -->
-<!-- ================================================= -->
 
 <section
     class="content-section"
@@ -249,7 +218,6 @@
 >
 
     <div class="container">
-
 
         <div class="section-heading">
 
@@ -265,21 +233,18 @@
 
             </div>
 
-
-            <a href="{% url 'lista_jogos' %}">
-                Ver tudo
+            <a href="{% url 'keys_shop' %}">
+                Ver catálogo
                 <i class="bi bi-arrow-right"></i>
             </a>
 
         </div>
 
-
         <div class="row g-3">
-
 
             <div class="col-6 col-md-3">
 
-                <a href="#" class="category-card category-purple">
+                <div class="category-card category-purple">
 
                     <i class="bi bi-sword"></i>
 
@@ -291,14 +256,13 @@
                         Aventuras
                     </small>
 
-                </a>
+                </div>
 
             </div>
 
-
             <div class="col-6 col-md-3">
 
-                <a href="#" class="category-card category-green">
+                <div class="category-card category-green">
 
                     <i class="bi bi-crosshair"></i>
 
@@ -310,14 +274,13 @@
                         Combate
                     </small>
 
-                </a>
+                </div>
 
             </div>
 
-
             <div class="col-6 col-md-3">
 
-                <a href="#" class="category-card category-blue">
+                <div class="category-card category-blue">
 
                     <i class="bi bi-car-front-fill"></i>
 
@@ -329,14 +292,13 @@
                         Velocidade
                     </small>
 
-                </a>
+                </div>
 
             </div>
 
-
             <div class="col-6 col-md-3">
 
-                <a href="#" class="category-card category-pink">
+                <div class="category-card category-pink">
 
                     <i class="bi bi-globe2"></i>
 
@@ -348,10 +310,9 @@
                         Multiplayer
                     </small>
 
-                </a>
+                </div>
 
             </div>
-
 
         </div>
 
@@ -360,15 +321,11 @@
 </section>
 
 
-
-<!-- ================================================= -->
-<!-- DESTAQUES -->
-<!-- ================================================= -->
+<!-- JOGOS EM DESTAQUE -->
 
 <section class="content-section">
 
     <div class="container">
-
 
         <div class="section-heading">
 
@@ -384,152 +341,146 @@
 
             </div>
 
-
-            <a href="{% url 'lista_jogos' %}">
+            <a href="{% url 'keys_shop' %}">
                 Ver catálogo
                 <i class="bi bi-arrow-right"></i>
             </a>
 
         </div>
 
-
         <div class="row g-4">
-
 
             {% for jogo in jogos|slice:":4" %}
 
+                <div class="col-sm-6 col-lg-3">
 
-            <div class="col-sm-6 col-lg-3">
+                    <article class="game-card">
 
+                        <div class="game-image-wrapper">
 
-                <article class="game-card">
+                            {% if jogo.imagem_url %}
 
+                                <img
+                                    src="{{ jogo.imagem_url }}"
+                                    alt="{{ jogo.titulo }}"
+                                    class="game-image"
+                                >
 
-                    <div class="game-image-wrapper">
+                            {% else %}
 
+                                <div class="game-image-placeholder">
 
-                        {% if jogo.imagem_url %}
+                                    <i class="bi bi-controller"></i>
 
-                            <img
-                                src="{{ jogo.imagem_url }}"
-                                alt="{{ jogo.titulo }}"
-                                class="game-image"
-                            >
+                                </div>
 
-                        {% else %}
+                            {% endif %}
 
-                            <div class="game-image-placeholder">
+                            <span class="game-badge">
+                                {{ jogo.plataforma }}
+                            </span>
 
-                                <i class="bi bi-controller"></i>
+                            <div class="game-overlay">
+
+                                <a
+                                    href="{% url 'detalhe_jogo' jogo.id %}"
+                                    class="quick-view"
+                                >
+
+                                    <i class="bi bi-eye"></i>
+
+                                    Ver detalhes
+
+                                </a>
 
                             </div>
-
-                        {% endif %}
-
-
-                        <span class="game-badge">
-                            DIGITAL
-                        </span>
-
-
-                        <div class="game-overlay">
-
-                            <a
-                                href="{% url 'detalhe_jogo' jogo.id %}"
-                                class="quick-view"
-                            >
-
-                                <i class="bi bi-eye"></i>
-
-                                Ver detalhes
-
-                            </a>
 
                         </div>
 
-                    </div>
+                        <div class="game-body">
 
+                            <span class="game-platform">
 
-                    <div class="game-body">
+                                <i class="bi bi-geo-alt"></i>
 
+                                {{ jogo.regiao }}
 
-                        <span class="game-platform">
+                            </span>
 
-                            <i class="bi bi-pc-display"></i>
+                            <h3 class="game-title">
+                                {{ jogo.titulo }}
+                            </h3>
 
-                            {{ jogo.plataforma }}
+                            <div class="game-footer">
 
-                        </span>
+                                <div>
 
+                                    <span class="price-label">
+                                        Preço
+                                    </span>
 
-                        <h3 class="game-title">
+                                    <strong class="game-price">
+                                        R$ {{ jogo.preco }}
+                                    </strong>
 
-                            {{ jogo.titulo }}
+                                </div>
 
-                        </h3>
+                                <a
+                                    href="{% url 'detalhe_jogo' jogo.id %}"
+                                    class="buy-button"
+                                    title="Ver detalhes"
+                                    aria-label="Ver detalhes de {{ jogo.titulo }}"
+                                >
 
+                                    <i class="bi bi-arrow-right"></i>
 
-                        <div class="game-footer">
-
-
-                            <div>
-
-                                <span class="price-label">
-                                    A partir de
-                                </span>
-
-                                <strong class="game-price">
-                                    R$ {{ jogo.preco }}
-                                </strong>
+                                </a>
 
                             </div>
 
+                        </div>
+
+                    </article>
+
+                </div>
+
+            {% empty %}
+
+                <div class="col-12">
+
+                    <div class="empty-products">
+
+                        <i class="bi bi-controller"></i>
+
+                        <h3>
+                            Ainda não temos jogos cadastrados.
+                        </h3>
+
+                        <p>
+                            Cadastre jogos pelo Django Admin
+                            ou pela área protegida do projeto.
+                        </p>
+
+                        {% if user.is_authenticated %}
 
                             <a
-                                href="{% url 'detalhe_jogo' jogo.id %}"
-                                class="buy-button"
-                                title="Ver jogo"
+                                href="{% url 'criar_jogo' %}"
+                                class="btn-neon-primary mt-3"
                             >
 
                                 <i class="bi bi-plus-lg"></i>
 
+                                Cadastrar jogo
+
                             </a>
 
-                        </div>
+                        {% endif %}
 
                     </div>
 
-
-                </article>
-
-
-            </div>
-
-
-            {% empty %}
-
-
-            <div class="col-12">
-
-                <div class="empty-products">
-
-                    <i class="bi bi-controller"></i>
-
-                    <h3>
-                        Ainda não temos jogos cadastrados.
-                    </h3>
-
-                    <p>
-                        Cadastre alguns jogos pelo painel administrativo.
-                    </p>
-
                 </div>
 
-            </div>
-
-
             {% endfor %}
-
 
         </div>
 
@@ -538,10 +489,7 @@
 </section>
 
 
-
-<!-- ================================================= -->
-<!-- OFERTA -->
-<!-- ================================================= -->
+<!-- OFERTAS -->
 
 <section
     class="offer-section"
@@ -552,38 +500,34 @@
 
         <div class="offer-card">
 
-
             <div class="offer-grid"></div>
 
-
             <div class="offer-content">
-
 
                 <span class="offer-tag">
 
                     <i class="bi bi-lightning-charge-fill"></i>
 
-                    OFERTA ESPECIAL
+                    OFERTAS
 
                 </span>
 
-
                 <h2>
+
                     Sua próxima aventura
                     <span>pode custar menos.</span>
-                </h2>
 
+                </h2>
 
                 <p>
 
-                    Fique de olho nas promoções disponíveis
-                    e encontre novos jogos para sua biblioteca.
+                    Esta seção apresenta jogos em que o preço atual
+                    é menor que o preço anterior cadastrado no Model.
 
                 </p>
 
-
                 <a
-                    href="{% url 'lista_jogos' %}"
+                    href="{% url 'keys_shop' %}?ofertas=1"
                     class="btn-neon-primary"
                 >
 
@@ -595,13 +539,100 @@
 
             </div>
 
-
             <div class="offer-decoration">
 
                 <i class="bi bi-controller"></i>
 
             </div>
 
+        </div>
+
+        <div class="row g-4 mt-4">
+
+            {% for jogo in ofertas|slice:":4" %}
+
+                <div class="col-sm-6 col-lg-3">
+
+                    <article class="game-card offer-game-card">
+
+                        <div class="game-image-wrapper">
+
+                            {% if jogo.imagem_url %}
+
+                                <img
+                                    src="{{ jogo.imagem_url }}"
+                                    alt="{{ jogo.titulo }}"
+                                    class="game-image"
+                                >
+
+                            {% else %}
+
+                                <div class="game-image-placeholder">
+
+                                    <i class="bi bi-controller"></i>
+
+                                </div>
+
+                            {% endif %}
+
+                            <span class="discount-badge">
+                                OFERTA
+                            </span>
+
+                        </div>
+
+                        <div class="game-body">
+
+                            <span class="game-platform">
+
+                                {{ jogo.plataforma }}
+
+                            </span>
+
+                            <h3 class="game-title">
+                                {{ jogo.titulo }}
+                            </h3>
+
+                            <div class="price-stack">
+
+                                <span class="old-price">
+                                    R$ {{ jogo.preco_anterior }}
+                                </span>
+
+                                <strong class="game-price">
+                                    R$ {{ jogo.preco }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            {% empty %}
+
+                <div class="col-12">
+
+                    <div class="empty-products">
+
+                        <i class="bi bi-lightning-charge"></i>
+
+                        <h3>
+                            Nenhuma oferta cadastrada.
+                        </h3>
+
+                        <p>
+                            Quando um jogo possuir preço anterior
+                            maior que o preço atual, ele aparecerá aqui.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
 
         </div>
 
@@ -610,15 +641,11 @@
 </section>
 
 
-
-<!-- ================================================= -->
-<!-- POR QUE BN-KEYS -->
-<!-- ================================================= -->
+<!-- INSTITUCIONAL -->
 
 <section class="content-section">
 
     <div class="container">
-
 
         <div class="section-heading centered">
 
@@ -629,16 +656,14 @@
                 </span>
 
                 <h2>
-                    Uma loja feita para gamers
+                    Uma loja feita para o projeto
                 </h2>
 
             </div>
 
         </div>
 
-
         <div class="row g-4 mt-2">
-
 
             <div class="col-md-4">
 
@@ -651,18 +676,17 @@
                     </div>
 
                     <h3>
-                        Experiência rápida
+                        Navegação simples
                     </h3>
 
                     <p>
-                        Navegação simples para encontrar
-                        rapidamente o jogo que você procura.
+                        Encontre rapidamente os jogos
+                        disponíveis no catálogo.
                     </p>
 
                 </div>
 
             </div>
-
 
             <div class="col-md-4">
 
@@ -670,23 +694,22 @@
 
                     <div class="feature-icon green">
 
-                        <i class="bi bi-shield-check"></i>
+                        <i class="bi bi-database-check"></i>
 
                     </div>
 
                     <h3>
-                        Compra digital
+                        Dados do catálogo
                     </h3>
 
                     <p>
-                        Uma experiência focada em jogos
-                        digitais e acesso à sua biblioteca.
+                        A interface utiliza os dados reais
+                        do Model do projeto.
                     </p>
 
                 </div>
 
             </div>
-
 
             <div class="col-md-4">
 
@@ -694,29 +717,27 @@
 
                     <div class="feature-icon purple">
 
-                        <i class="bi bi-stars"></i>
+                        <i class="bi bi-code-slash"></i>
 
                     </div>
 
                     <h3>
-                        Catálogo em expansão
+                        Projeto Django
                     </h3>
 
                     <p>
-                        Novos títulos podem ser adicionados
-                        continuamente ao catálogo.
+                        Estrutura baseada em MVT,
+                        templates e autenticação nativa.
                     </p>
 
                 </div>
 
             </div>
 
-
         </div>
 
     </div>
 
 </section>
-
 
 {% endblock %}

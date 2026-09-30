@@ -4,7 +4,6 @@ from django.db import models
 class Key(models.Model):
     titulo = models.CharField(max_length=200)
     plataforma = models.CharField(max_length=50)
-    regiao = models.CharField(max_length=50)
     preco = models.DecimalField( max_digits=10, decimal_places=2)
 
     preco_anterior = models.DecimalField(

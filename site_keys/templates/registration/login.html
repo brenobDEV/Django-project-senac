@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Entrar | Bn-Keys
+{% endblock %}
+
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="container">
+
+        <div class="auth-layout">
+
+            <div class="auth-intro">
+
+                <span class="section-kicker">
+                    BN-KEYS ACCOUNT
+                </span>
+
+                <h1>
+                    Entre na sua
+                    <span>conta.</span>
+                </h1>
+
+                <p>
+                    Acesse seu perfil e as áreas protegidas
+                    do projeto acadêmico.
+                </p>
+
+                <div class="auth-feature-list">
+
+                    <div>
+
+                        <span class="auth-feature-icon">
+                            <i class="bi bi-person-check"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Acesso seguro
+                            </strong>
+
+                            <small>
+                                Autenticação nativa do Django.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <span class="auth-feature-icon">
+                            <i class="bi bi-grid"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Área personalizada
+                            </strong>
+
+                            <small>
+                                Perfil e navegação para usuários logados.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <span class="auth-feature-icon">
+                            <i class="bi bi-code-slash"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Projeto acadêmico
+                            </strong>
+
+                            <small>
+                                Desenvolvido com Django e Bootstrap.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="login-card">
+
+                <div class="login-card-top">
+
+                    <div class="login-icon">
+
+                        <i class="bi bi-controller"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>
+                            BEM-VINDO
+                        </span>
+
+                        <h2>
+                            Login
+                        </h2>
+
+                    </div>
+
+                </div>
+
+
+                {% if form.non_field_errors %}
+
+                    <div class="auth-alert">
+
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+
+                        <div>
+
+                            {% for error in form.non_field_errors %}
+
+                                {{ error }}
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                <form
+                    method="post"
+                    action="{% url 'login' %}"
+                    class="auth-form"
+                    novalidate
+                >
+
+                    {% csrf_token %}
+
+
+                    <div class="form-field">
+
+                        <label for="{{ form.username.id_for_label }}">
+
+                            Usuário
+
+                        </label>
+
+                        <div class="input-icon-wrapper">
+
+                            <i class="bi bi-person"></i>
+
+                            {{ form.username }}
+
+                        </div>
+
+                        {% if form.username.errors %}
+
+                            <div class="field-error">
+
+                                {{ form.username.errors }}
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="form-field">
+
+                        <label for="{{ form.password.id_for_label }}">
+
+                            Senha
+
+                        </label>
+
+                        <div class="input-icon-wrapper">
+
+                            <i class="bi bi-lock"></i>
+
+                            {{ form.password }}
+
+                        </div>
+
+                        {% if form.password.errors %}
+
+                            <div class="field-error">
+
+                                {{ form.password.errors }}
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <input
+                        type="hidden"
+                        name="next"
+                        value="{{ next|default:'/' }}"
+                    >
+
+
+                    <button
+                        type="submit"
+                        class="btn-login-submit"
+                    >
+
+                        Entrar na conta
+
+                        <i class="bi bi-arrow-right"></i>
+
+                    </button>
+
+                </form>
+
+
+                <div class="login-card-footer">
+
+                    <i class="bi bi-shield-lock"></i>
+
+                    Login gerenciado pelo sistema de autenticação
+                    nativo do Django.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

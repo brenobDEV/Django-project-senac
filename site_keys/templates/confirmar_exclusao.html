@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Excluir {{ jogo.titulo }} | Bn-Keys
+{% endblock %}
+
+
+{% block content %}
+
+<section class="form-page">
+
+    <div class="container">
+
+        <div class="delete-card">
+
+            <div class="delete-icon">
+
+                <i class="bi bi-trash3"></i>
+
+            </div>
+
+            <span class="section-kicker">
+                ATENÇÃO
+            </span>
+
+            <h1>
+                Excluir jogo?
+            </h1>
+
+            <p>
+
+                Você está prestes a excluir:
+
+            </p>
+
+            <strong class="delete-game-name">
+                {{ jogo.titulo }}
+            </strong>
+
+            <p class="delete-warning">
+
+                Essa ação remove o registro do banco de dados.
+
+            </p>
+
+
+            <form
+                method="post"
+                class="delete-actions"
+            >
+
+                {% csrf_token %}
+
+                <a
+                    href="{% url 'detalhe_jogo' jogo.id %}"
+                    class="btn-neon-secondary"
+                >
+
+                    Cancelar
+
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn-danger-neon"
+                >
+
+                    <i class="bi bi-trash3"></i>
+
+                    Confirmar exclusão
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

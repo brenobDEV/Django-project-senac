@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Configurações | Bn-Keys
+{% endblock %}
+
+
+{% block content %}
+
+<section class="account-page">
+
+    <div class="container">
+
+        <div class="account-header">
+
+            <span class="section-kicker">
+                MINHA CONTA
+            </span>
+
+            <h1>
+                Configurações
+            </h1>
+
+            <p>
+                Área reservada para futuras configurações da conta.
+            </p>
+
+        </div>
+
+
+        <div class="empty-account-card">
+
+            <div class="empty-account-icon">
+
+                <i class="bi bi-gear"></i>
+
+            </div>
+
+            <span class="empty-account-kicker">
+                EM DESENVOLVIMENTO
+            </span>
+
+            <h2>
+                Configurações ainda não implementadas.
+            </h2>
+
+            <p>
+                O projeto atual não possui funcionalidades de
+                edição de preferências ou dados da conta.
+                Nenhuma funcionalidade fictícia foi adicionada.
+            </p>
+
+            <a
+                href="{% url 'perfil' %}"
+                class="btn-neon-primary"
+            >
+
+                <i class="bi bi-person"></i>
+
+                Voltar ao perfil
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
